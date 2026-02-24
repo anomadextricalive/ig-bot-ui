@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+downloads/
+session.json
+processed.json
+*.log
+.venv/
+venv/
