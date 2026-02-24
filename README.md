@@ -6,12 +6,14 @@ A DM-triggered Instagram bot that automatically reposts reels. Send a reel to th
 
 ### 1. Clone & Install
 
-```bash
-cd instagram-repost-bot
-pip install -r requirements.txt
-```
+If you are setting this up on a new computer or a Cloud Server (VPS), first grab the code from GitHub and install the dependencies:
 
-### 2. Configure
+```bash
+git clone https://github.com/anomadextricalive/ig-bot-ui.git
+cd ig-bot-ui
+pip install -r requirements.txt
+playwright install
+```
 
 Copy the example env file and fill in your credentials:
 
