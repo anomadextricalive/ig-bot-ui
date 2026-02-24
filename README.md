@@ -11,8 +11,8 @@ If you are setting this up on a new computer or a Cloud Server (VPS), first grab
 ```bash
 git clone https://github.com/anomadextricalive/ig-bot-ui.git
 cd ig-bot-ui
-pip install -r requirements.txt
-playwright install
+python3 -m pip install -r requirements.txt
+python3 -m playwright install
 ```
 
 Copy the example env file and fill in your credentials:
