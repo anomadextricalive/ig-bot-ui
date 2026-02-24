@@ -15,11 +15,16 @@ python3 -m pip install -r requirements.txt
 python3 -m playwright install
 ```
 
+> **Security Note:** Your actual `.env` file containing your passwords is intentionally blocked from uploading to GitHub to keep your account safe. **You must recreate this file manually on every new computer/server.**
+
 Copy the example env file and fill in your credentials:
 
 ```bash
 cp .env.example .env
+nano .env
 ```
+
+*(Press `Ctrl+O` then `Enter` to save, and `Ctrl+X` to exit)*
 
 Edit `.env`:
 
