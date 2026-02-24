@@ -16,6 +16,7 @@ def load_config() -> dict:
         "password": os.getenv("IG_PASSWORD", ""),
         "allowed_sender": os.getenv("ALLOWED_SENDER", ""),
         "poll_interval": int(os.getenv("POLL_INTERVAL_SECONDS", "60")),
+        "WEBHOOK_URL": os.getenv("WEBHOOK_URL", ""),
     }
 
     # Validate required fields

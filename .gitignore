@@ -7,3 +7,12 @@ processed.json
 *.log
 .venv/
 venv/
+
+browser_data/
+bot.log
+downloads/
+.env
+node_modules/
+.next/
+debug_upload_timeout.png
+debug_no_share.png

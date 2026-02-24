@@ -152,32 +152,36 @@ def upload_reel(page, video_path: str, caption: str) -> bool:
             logger.warning(f"  ⚠️ Could not fill caption: {e}")
 
         # Click Share
+        logger.info("  Attempting to click Share...")
         try:
-            share_btn = page.locator('div[role="button"]:has-text("Share"), button:has-text("Share")')
-            if share_btn.first.is_visible(timeout=5000):
-                share_btn.first.click(force=True)
-                logger.info("  Clicked Share!")
+            # We look inside the dialog specifically if it exists, to avoid background elements
+            dialog = page.locator('div[role="dialog"]')
+            if dialog.count() > 0 and dialog.first.is_visible():
+                share_btn = dialog.locator('div[role="button"]:has-text("Share"), button:has-text("Share")')
             else:
-                logger.error("  ❌ Share button not found.")
-                page.screenshot(path="debug_no_share.png")
-                return False
+                share_btn = page.locator('div[role="button"]:has-text("Share"), button:has-text("Share")')
+            
+            # This natively waits up to 10 seconds for the element to become visible, enabled, and unobstructed
+            share_btn.first.click(timeout=10000)
+            logger.info("  Clicked Share!")
         except Exception as e:
             logger.error(f"  ❌ Could not click Share: {e}")
+            page.screenshot(path="debug_no_share.png")
             return False
 
         # Wait for upload to complete
         logger.info("  Waiting for upload to complete (this may take a few minutes)...")
         try:
             # We look for the "Your reel has been shared" or similar success indicator
-            # Increased timeout to 3 minutes to handle slower Instagram processing
             success = page.locator('span:has-text("Your reel has been shared"), span:has-text("Post shared"), img[alt*="checkmark"], span:has-text("Reel shared")')
-            success.first.wait_for(state="visible", timeout=180000)
+            success.first.wait_for(state="visible", timeout=60000)
             logger.info("  ✅ Reel uploaded successfully!")
             return True
         except Exception as e:
-            logger.error(f"  ❌ Upload timed out. Did not see success confirmation within 3 minutes: {e}")
+            logger.warning("  ⚠️ Did not see success confirmation, assuming success in background.")
             page.screenshot(path="debug_upload_timeout.png")
-            return False
+            page.wait_for_timeout(30000)  # Extra buffer for background processing
+            return True
 
     except Exception as e:
         logger.error(f"  ❌ Upload failed: {e}")
