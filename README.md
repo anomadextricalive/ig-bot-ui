@@ -35,19 +35,35 @@ POLL_INTERVAL_SECONDS=60
 | `ALLOWED_SENDER` | Your main account — only reels from this account trigger reposts |
 | `POLL_INTERVAL_SECONDS` | How often to check DMs (default: 60 seconds) |
 
-### 3. Run
+### 3. Run (Standard)
+
+To run the bot normally where you can see the output live:
 
 ```bash
-python main.py
+python3 main.py
 ```
 
 The bot will:
-1. Log in to the bot account
+1. Launch an invisible browser to log in to the bot account
 2. Start monitoring DMs every 60 seconds
-3. When you send a reel from your main account → it downloads and reposts it
-4. Each repost includes `📸 Credit: @original_creator` in the caption
+3. When you send a reel from your main account → it downloads and reposts it autonomously
+4. Send live progress updates to your Vercel Dashboard webhook
 
 Press `Ctrl+C` to stop.
+
+### 4. Run 24/7 in Background (Recommended)
+
+To keep the bot running continuously even if you close your terminal window or VS Code, use `nohup`:
+
+```bash
+nohup python3 main.py > bot.log 2>&1 &
+```
+
+- You can now safely close your terminal.
+- To view the live logs at any time, run: `tail -f bot.log`
+- To completely stop the background bot, run: `pkill -f "python3 main.py"`
+
+> **Note on Laptops**: While `nohup` survives terminal closures, your computer must remain powered on and awake. To run the bot permanently while your laptop is shut down, you will need to clone this repository onto a small cloud VPS (Virtual Private Server) like DigitalOcean or Hetzner and run the exact same `nohup` command there.
 
 ## How It Works
 
