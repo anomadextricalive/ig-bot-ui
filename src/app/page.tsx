@@ -18,7 +18,7 @@ export default function Dashboard() {
 
     const fetchStatus = async () => {
         try {
-            const res = await fetch('/api/progress');
+            const res = await fetch('/api/progress', { cache: 'no-store' });
             if (res.ok) {
                 const data = await res.json();
                 setBotState(data);
@@ -93,9 +93,9 @@ export default function Dashboard() {
                     >
                         {/* Ambient Background Glow based on status */}
                         <div className={`absolute -top-32 -left-32 w-96 h-96 bg-opacity-20 blur-[100px] rounded-full pointer-events-none transition-colors duration-1000 ${botState?.status === 'uploading' ? 'bg-purple-500' :
-                                botState?.status === 'downloading' ? 'bg-blue-500' :
-                                    botState?.status === 'completed' ? 'bg-emerald-500' :
-                                        botState?.status === 'error' ? 'bg-rose-500' : 'bg-slate-500'
+                            botState?.status === 'downloading' ? 'bg-blue-500' :
+                                botState?.status === 'completed' ? 'bg-emerald-500' :
+                                    botState?.status === 'error' ? 'bg-rose-500' : 'bg-slate-500'
                             }`} />
 
                         <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-8">

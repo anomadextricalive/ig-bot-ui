@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import { kv } from '@vercel/kv';
 
+export const dynamic = 'force-dynamic';
+
+
 // Fallback memory store in case KV is not configured locally
 let fallbackStore = {
     status: 'idle',
